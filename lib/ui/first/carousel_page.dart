@@ -6,7 +6,6 @@ class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _FirstPageState createState() => _FirstPageState();
 }
 
@@ -60,6 +59,7 @@ class _FirstPageState extends State<FirstPage> {
             carouselController: _controller,
             options: CarouselOptions(
               autoPlay: true,
+              enableInfiniteScroll: false,
               enlargeCenterPage: true,
               aspectRatio: 1.0,
               onPageChanged: (index, reason) {
