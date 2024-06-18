@@ -19,24 +19,25 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
- void login() async {
+  void login() async {
     String email = _emailController.text.toString().trim();
     String password = _passwordController.text.toString().trim();
-    if (email.isNotEmpty && password.isNotEmpty) {
-     LoginRequest login=  LoginRequest(email: email, password: password);
-      var response = await AuthService.login(login);
-      Logger().i("ishlamoqda");
-      Logger().i(response);
-     if(response!=null){
-       Navigator.push(
-         context,
-         MaterialPageRoute(
-           builder: (context) => const HomePage(),
-         ),
-       );
-     }
-    }
+
+    await AuthService.login({'email': email, 'password': password});
+    // if (email.isNotEmpty && password.isNotEmpty) {
+    //   LoginRequest login = LoginRequest(email: email, password: password);
+    //   var response = await AuthService.login(login.toJson());
+    //   Logger().i("ishlamoqda");
+    //   Logger().i(response);
+    //   if (response != null) {
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (context) => const HomePage(),
+    //       ),
+    //     );
+    //   }
+    // }
   }
 
   @override
@@ -69,8 +70,8 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.grey[200],
               ),
-              child:  TextField(
-                controller:_emailController ,
+              child: TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Nickname',
                   border: InputBorder.none,
@@ -114,11 +115,11 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-             // height: 52,
+              // height: 52,
               child: ElevatedButton(
                 onPressed: () {
                   login();
-               //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                  //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00B900),
