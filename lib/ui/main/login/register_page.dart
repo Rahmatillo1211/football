@@ -1,5 +1,9 @@
-import 'package:fantasy_football/ui/main/home/home_page.dart';
+import 'package:fantasy_football/domain/entities/registration/register_user.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+import '../../../api/auth_service.dart';
+import '../home/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -14,6 +18,25 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nicknameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  checkRegistration() async {
+    String email = _emailController.text.toString().trim();
+    String password = _passwordController.text.toString().trim();
+    String nickname = _nicknameController.text.toString().trim();
+    if (email.isNotEmpty && nickname.isNotEmpty && password.isNotEmpty) {
+      RegisterUser registerUser =
+          RegisterUser(username: nickname, email: email, password: password);
+      var response = await AuthService.registration(registerUser);
+      Logger().i("ishlamoqda");
+      Logger().i(response);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -90,6 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 color: Colors.grey[200],
               ),
               child: TextField(
+                controller: _passwordController,
                 obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
                     labelText: 'Password',
@@ -115,15 +139,10 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-              height: 52,
+              // height: 52,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                  );
+                  checkRegistration();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00B900),

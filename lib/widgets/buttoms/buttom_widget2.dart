@@ -45,7 +45,7 @@ class ButtomWidget2 extends StatelessWidget {
                     Navigator.of(context).pop(); 
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
+                 //   primary: Colors.green,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

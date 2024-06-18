@@ -1,9 +1,18 @@
+import 'package:fantasy_football/api/auth_service.dart';
+import 'package:fantasy_football/service/url_launcher_service.dart';
 import 'package:fantasy_football/utils/list/buttom_list3.dart';
 import 'package:fantasy_football/widgets/buttoms/buttom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
+
+  void logout() async {
+    var response =
+        await AuthService.logout({"email": "akramovadilshoda16@gmail.com"});
+    Logger().i(response);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +30,17 @@ class SettingScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        actions: const [
-          Icon(
-            Icons.exit_to_app,
-            color: Colors.black,
-            size: 34,
-          ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              logout();
+            },
+            icon: Icon(
+              Icons.exit_to_app,
+              color: Colors.black,
+              size: 34,
+            ),
+          )
         ],
       ),
     );
@@ -48,38 +62,53 @@ class SettingScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                GestureDetector(
+                  onTap: () async{
+                  await  LaunchUrl.facebookCall();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    height: 60,
+                    width: 60,
+                    child: Image.asset('assets/images/facebook.png'),
                   ),
-                  height: 60,
-                  width: 60,
-                  child: Image.asset('assets/images/facebook.png'),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                GestureDetector(
+                  onTap: () async{
+                    await  LaunchUrl.twitterCall();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    height: 60,
+                    width: 60,
+                    child: Image.asset('assets/images/twitter.png'),
                   ),
-                  height: 60,
-                  width: 60,
-                  child: Image.asset('assets/images/twitter.png'),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                GestureDetector(
+                  onTap: () async{
+                    await  LaunchUrl.instagramCall();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    height: 60,
+                    width: 60,
+                    child: Image.asset('assets/images/instagram.png'),
                   ),
-                  height: 60,
-                  width: 60,
-                  child: Image.asset('assets/images/instagram.png'),
                 ),
               ],
             )

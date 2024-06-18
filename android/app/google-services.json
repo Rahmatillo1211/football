@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "615523326994",
+    "project_id": "football-ae4ed",
+    "storage_bucket": "football-ae4ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615523326994:android:cc2b4fdfe5a383eb3f8ccb",
+        "android_client_info": {
+          "package_name": "com.example.fantasy_football"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5xFUwh1drLuf0SFThJYsupbL7zDHL7to"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
