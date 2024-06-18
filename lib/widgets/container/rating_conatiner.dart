@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 class RatingContainer extends StatelessWidget {
+  final bool isMine;
   final bool isMain;
+  final bool firstFour;
+  final bool secondTwo;
+  final bool thirdOne;
   final String titleNumber;
   final String teamNames;
   final String typeNumber;
   final String ptsNumber;
   final String imageName;
+
   const RatingContainer({
     super.key,
     required this.titleNumber,
@@ -15,65 +20,106 @@ class RatingContainer extends StatelessWidget {
     required this.ptsNumber,
     required this.imageName,
     required this.isMain,
+    required this.firstFour,
+    required this.secondTwo,
+    required this.thirdOne,
+    required this.isMine,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey.shade600,
-                  width: 0.5,
+@override
+Widget build(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    child: Column(
+      children: [
+        Stack(
+          alignment: Alignment.center, // Align the stack horizontally centered
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
                 ),
               ),
+              height: 40,
             ),
-            height: 40,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Row(
-                children: [
-                  Text(
-                    titleNumber,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: isMain ? Colors.black : Colors.grey,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center, // Center contents horizontally
+              children: [
+                if (firstFour)
+                  Image.asset(
+                    'assets/images/lineBlue.png',
+                  ),
+                if (secondTwo)
+                  Image.asset(
+                    'assets/images/linePurple.png',
+                  ),
+                if (thirdOne)
+                  Image.asset(
+                    'assets/images/lineGreen.png',
+                  ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Text(
+                  titleNumber,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isMain ? Colors.black : Colors.grey,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                isMain
+                    ? Image.asset(
+                        imageName,
+                      )
+                    : const SizedBox(),
+                const SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  teamNames,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: isMain ? Colors.black : Colors.grey,
+                  ),
+                ),
+                Expanded(child: Container()), // Spacer to push text to the left and right
+              ],
+            ),
+            isMain
+                ? Positioned(
+                    right: 155,
+                    child: Text(
+                      typeNumber,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: isMain ? Colors.black : Colors.grey,
+                      ),
+                    ),
+                  )
+                : Positioned(
+                    right: 140,
+                    child: Text(
+                      typeNumber,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: isMain ? Colors.black : Colors.grey,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  isMain
-                      ? Image.asset(
-                          imageName,
-                        )
-                      : const SizedBox(),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(teamNames,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: isMain ? Colors.black : Colors.grey,
-                      )),
-                  isMain
-                      ? const SizedBox(
-                          width: 200,
-                        )
-                      : const SizedBox(
-                          width: 170,
-                        ),
-                  Text(typeNumber,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: isMain ? Colors.black : Colors.grey,
-                      )),
-                  const Spacer(),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
                   Text(
                     ptsNumber,
                     style: const TextStyle(
@@ -84,9 +130,11 @@ class RatingContainer extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 }
