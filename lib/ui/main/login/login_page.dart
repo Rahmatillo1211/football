@@ -1,6 +1,10 @@
+import 'package:fantasy_football/domain/entities/login/login_request.dart';
 import 'package:fantasy_football/ui/main/home/home_page.dart';
 import 'package:fantasy_football/ui/main/login/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+import '../../../api/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +16,28 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isPasswordVisible = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+
+ void login() async {
+    String email = _emailController.text.toString().trim();
+    String password = _passwordController.text.toString().trim();
+    if (email.isNotEmpty && password.isNotEmpty) {
+     LoginRequest login=  LoginRequest(email: email, password: password);
+      var response = await AuthService.login(login);
+      Logger().i("ishlamoqda");
+      Logger().i(response);
+     if(response!=null){
+       Navigator.push(
+         context,
+         MaterialPageRoute(
+           builder: (context) => const HomePage(),
+         ),
+       );
+     }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.grey[200],
               ),
-              child: const TextField(
+              child:  TextField(
+                controller:_emailController ,
                 decoration: InputDecoration(
                   labelText: 'Nickname',
                   border: InputBorder.none,
@@ -61,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.grey[200],
               ),
               child: TextField(
+                controller: _passwordController,
                 obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
                     labelText: 'Password',
@@ -86,10 +114,11 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-              height: 52,
+             // height: 52,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                  login();
+               //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00B900),

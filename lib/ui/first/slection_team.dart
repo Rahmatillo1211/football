@@ -1,4 +1,8 @@
+import 'package:fantasy_football/service/hive_service/only_position.dart';
+import 'package:fantasy_football/service/hive_service/selection_section.dart';
 import 'package:flutter/material.dart';
+
+import '../../other/lists.dart';
 
 class SelectionTeam extends StatefulWidget {
   const SelectionTeam({super.key});
@@ -11,22 +15,33 @@ class SelectionTeam extends StatefulWidget {
 
 class _SelectionTeamState extends State<SelectionTeam> {
   int _selectedIndex = 0;
-  List<String> playerNames = [
-    "Player 1",
-    "Player 2",
-    "Player 3",
-    "Player 4",
-    "Player 5",
-    "Player 6",
-    "Player 7",
-    "Player 8",
-    "Player 9",
-    "Player 10",
-    "Player 11",
-  ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    check();
+  }
+
+  String s = SelectionSection.getSection() ?? "1-3-4-3";
+
+  void check() {
+    setState(() {
+      if (s == teamSection[1]) {
+        _selectedIndex = 1;
+      } else if (s == teamSection[2]) {
+        _selectedIndex = 2;
+      } else if (s == teamSection[3]) {
+        _selectedIndex = 3;
+      }
+    });
+  }
+
   List<bool> playerSelected = List.generate(11, (_) => false);
   Map<int, int> selectedPlayers = {};
   int? currentSelectedPosition;
+
+  // get teamSection => null;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +53,25 @@ class _SelectionTeamState extends State<SelectionTeam> {
   Widget _buildBody(BuildContext context) {
     return Column(
       children: <Widget>[
-        const Text("data"),
-        buildDrop(context),
+        Container(
+          padding: EdgeInsets.only(right: 20),
+          decoration: const BoxDecoration(
+            color: Color(0xff1F9059),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          width: 350,
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Text(
+                "Kamanda Tering",
+                style: TextStyle(fontSize: 20),
+              ),
+              buildDrop(context),
+            ],
+          ),
+        ),
         _buildStack(),
         Container(
           decoration: BoxDecoration(
@@ -61,6 +93,7 @@ class _SelectionTeamState extends State<SelectionTeam> {
                       onTap: playerSelected[index]
                           ? null
                           : () {
+                        OnlyPosition.updatePlayerPosition(index, index);
                               setState(() {
                                 if (currentSelectedPosition != null) {
                                   selectedPlayers[currentSelectedPosition!] =
@@ -94,12 +127,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
           ),
         ),
         const SizedBox(height: 10),
-
       ],
     );
   }
-
-
 
   Widget _buildStack() {
     List<Widget> playerPositions = _getFormationPlayers();
@@ -141,15 +171,15 @@ class _SelectionTeamState extends State<SelectionTeam> {
     List<Widget> positions = [];
     double fieldWidth = MediaQuery.of(context).size.width;
     double fieldHeight = MediaQuery.of(context).size.height;
-    double verticalSpacing = 100.0;
+    double verticalSpacing = 110.0;
 
     positions.addAll(_buildLine(
-        goalkeepers, fieldHeight / 2 - verticalSpacing * 3, fieldWidth));
+        goalkeepers, fieldHeight / 2 - verticalSpacing * 3, fieldWidth - 15));
     positions.addAll(_buildLine(
-        defenders, fieldHeight / 2 - verticalSpacing * 2, fieldWidth));
-    positions.addAll(
-        _buildLine(midfielders, fieldHeight / 2 - verticalSpacing, fieldWidth));
-    positions.addAll(_buildLine(forwards, fieldHeight / 2, fieldWidth));
+        defenders, fieldHeight / 2 - verticalSpacing * 2, fieldWidth - 15));
+    positions.addAll(_buildLine(
+        midfielders, fieldHeight / 2 - verticalSpacing, fieldWidth - 15));
+    positions.addAll(_buildLine(forwards, fieldHeight / 2, fieldWidth - 15));
 
     return positions;
   }
@@ -157,15 +187,15 @@ class _SelectionTeamState extends State<SelectionTeam> {
   List<Widget> _buildLine(
       int playerCount, double topOffset, double fieldWidth) {
     List<Widget> linePositions = [];
-    double leftOffset = (fieldWidth - (playerCount - 1) * 90.0) /
-        2; 
+    double spacing = 70.0; // Adjusted spacing between players
+    double leftOffset = (fieldWidth - (playerCount - 1) * spacing) / 2;
 
     for (int i = 0; i < playerCount; i++) {
       int positionKey = topOffset.toInt() * 10 + i;
       linePositions.add(
         Positioned(
           top: topOffset,
-          left: leftOffset + (i * 90.0), 
+          left: leftOffset + (i * spacing),
           child: InkWell(
             onTap: () {
               setState(
@@ -200,6 +230,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
 
   void _onDropdownChanged(int? newIndex) {
     if (newIndex != null) {
+      print("$newIndex ++++++++++++++++++++++++++++++++++++++++++++");
+      SelectionSection.saveSection(teamSection[newIndex]);
+
       setState(
         () {
           _selectedIndex = newIndex;
@@ -212,61 +245,70 @@ class _SelectionTeamState extends State<SelectionTeam> {
   }
 
   Widget buildDrop(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 20),
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          height: 50,
-          width: 90,
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<int>(
-              value: _selectedIndex,
-              onChanged: _onDropdownChanged,
-              items: const [
-                DropdownMenuItem<int>(
-                  value: 0,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: Text('1-3-4-3')),
-                  ),
-                ),
-                DropdownMenuItem<int>(
-                  value: 1,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: Text('1-3-5-2')),
-                  ),
-                ),
-                DropdownMenuItem<int>(
-                  value: 2,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: Text('1-4-5-1')),
-                  ),
-                ),
-                DropdownMenuItem<int>(
-                  value: 3,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: Text('1-4-4-2')),
-                  ),
-                ),
-              ],
-              hint: const Padding(
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0xff1F9059),
+      ),
+      height: 50,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<int>(
+          value: _selectedIndex,
+          onChanged: _onDropdownChanged,
+          items: [
+            DropdownMenuItem<int>(
+              value: 0,
+              child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Center(
-                  child: Text('1-3-4-3'),
-                ),
+                    child: Text(
+                  teamSection[0],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
-              icon: const Icon(null),
+            ),
+            DropdownMenuItem<int>(
+              value: 1,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                    child: Text(
+                  teamSection[1],
+                  style: TextStyle(fontSize: 20),
+                )),
+              ),
+            ),
+            DropdownMenuItem<int>(
+              value: 2,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                    child: Text(
+                  teamSection[2],
+                  style: TextStyle(fontSize: 20),
+                )),
+              ),
+            ),
+            DropdownMenuItem<int>(
+              value: 3,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                    child: Text(
+                  teamSection[3],
+                  style: TextStyle(fontSize: 20),
+                )),
+              ),
+            ),
+          ],
+          hint: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Center(
+              child: Text('Select Formation'),
             ),
           ),
-        )
-      ],
+          icon: const Icon(null),
+        ),
+      ),
     );
   }
 }
