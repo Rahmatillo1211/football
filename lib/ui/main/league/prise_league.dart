@@ -3,6 +3,8 @@ import 'package:fantasy_football/widgets/container/rating_conatiner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'add_path_league.dart';
+
 class PriseLeague extends StatelessWidget {
   const PriseLeague({super.key});
 
@@ -27,7 +29,40 @@ class PriseLeague extends StatelessWidget {
   _buildBody(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 20,left: 10,right: 10),
+            decoration: BoxDecoration(
+              color:  Color(0xff9D9D9D),
+              borderRadius: BorderRadius.circular(20),
+              border: Border(
+                bottom: BorderSide(
+
+                  width: 1,
+                ),
+              ),
+            ),
+            height: 100,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                CircleAvatar(
+                  radius:14.5,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.add_circle,
+                    size: 31,
+                    color: Color(0xFF00B900),
+                  ),
+                ),  Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text("Rasm kiriting",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                ),
+              ],
+            ),
+          ),
           const RatingContainer(
             titleNumber: '#',
             teamNames: 'Uzb Cup',
@@ -46,7 +81,7 @@ class PriseLeague extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
-
+         Get.to(const AddPathLeague());
             },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 10),
@@ -61,15 +96,16 @@ class PriseLeague extends StatelessWidget {
                 ),
               ),
               height: 40,
-              child: Row(
+              width: 150,
+              child: const Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text("Hashimoto Liga Ochish"),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text("Liga Ochish"),
                   ),
                   Icon(
                     Icons.add_circle,
-                    color: const Color(0xFF00B900),
+                    color: Color(0xFF00B900),
                   )
                 ],
               ),
