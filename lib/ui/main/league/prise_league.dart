@@ -1,9 +1,10 @@
 import 'package:fantasy_football/utils/list/rating_list.dart';
 import 'package:fantasy_football/widgets/container/rating_conatiner.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class RatingPage extends StatelessWidget {
-  const RatingPage({super.key});
+class PriseLeague extends StatelessWidget {
+  const PriseLeague({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class RatingPage extends StatelessWidget {
         backgroundColor: Colors.white10,
         elevation: 0,
         title: const Text(
-          'Reyting',
+          "Sovrinli Ligalar",
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.w400,
@@ -29,9 +30,9 @@ class RatingPage extends StatelessWidget {
         children: [
           const RatingContainer(
             titleNumber: '#',
-            teamNames: 'Jamoalar',
+            teamNames: 'Uzb Cup',
             typeNumber: 'Shu Tur',
-            ptsNumber: 'PTS',
+            ptsNumber: 'Hammasi',
             imageName: '',
             isMain: false,
             firstFour: false,
@@ -39,7 +40,41 @@ class RatingPage extends StatelessWidget {
             thirdOne: false,
             isMine: false,
           ),
-          _buildRatingContainer(ratingList)
+          _buildRatingContainer(ratingList),
+          SizedBox(
+            height: 20,
+          ),
+          GestureDetector(
+            onTap: (){
+
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(16),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
+                ),
+              ),
+              height: 40,
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text("Hashimoto Liga Ochish"),
+                  ),
+                  Icon(
+                    Icons.add_circle,
+                    color: const Color(0xFF00B900),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -49,7 +84,7 @@ class RatingPage extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: data.length,
+      itemCount: 6,
       itemBuilder: (BuildContext context, int index) {
         bool isFirstFour = index >= 0 && index <= 3;
         bool isSecondTwo = index == 4 || index == 5;

@@ -1,6 +1,8 @@
 import 'package:fantasy_football/ui/other_pages/rating_page.dart';
 import 'package:fantasy_football/ui/test_page.dart';
 
+import '../../ui/main/league/league_round.dart';
+
 List<Map<String, dynamic>> buttomData = [
   {
     'image': 'assets/images/achko.png',
@@ -32,7 +34,7 @@ List<Map<String, dynamic>> buttomData = [
   {
     'image': 'assets/images/liga.png',
     'text': 'Ligalar',
-    'navigation': MyWidget(),
+    'navigation': LeagueRound(),
     'text2': ''
 
   },

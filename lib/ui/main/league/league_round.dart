@@ -1,9 +1,12 @@
 import 'package:fantasy_football/utils/list/rating_list.dart';
 import 'package:fantasy_football/widgets/container/rating_conatiner.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class RatingPage extends StatelessWidget {
-  const RatingPage({super.key});
+import 'additional_league.dart';
+
+class LeagueRound extends StatelessWidget {
+  const LeagueRound({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class RatingPage extends StatelessWidget {
         backgroundColor: Colors.white10,
         elevation: 0,
         title: const Text(
-          'Reyting',
+          '1 - 3 Tur',
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.w400,
@@ -31,7 +34,7 @@ class RatingPage extends StatelessWidget {
             titleNumber: '#',
             teamNames: 'Jamoalar',
             typeNumber: 'Shu Tur',
-            ptsNumber: 'PTS',
+            ptsNumber: 'Hammasi',
             imageName: '',
             isMain: false,
             firstFour: false,
@@ -39,7 +42,29 @@ class RatingPage extends StatelessWidget {
             thirdOne: false,
             isMine: false,
           ),
-          _buildRatingContainer(ratingList)
+          _buildRatingContainer(ratingList),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Get.to(const AdditionalLeague());
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00B900),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 15,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              "Qo'shimcha Ligalar",
+              style: TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ),
         ],
       ),
     );
@@ -64,7 +89,8 @@ class RatingPage extends StatelessWidget {
           isMain: true,
           firstFour: isFirstFour,
           secondTwo: isSecondTwo,
-          thirdOne: isThirdOne, isMine: isMine,
+          thirdOne: isThirdOne,
+          isMine: isMine,
         );
       },
     );
