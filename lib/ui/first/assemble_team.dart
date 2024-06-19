@@ -1,3 +1,4 @@
+import 'package:fantasy_football/service/hive_service/only_position.dart';
 import 'package:fantasy_football/widgets/team_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -123,6 +124,7 @@ class _AssembleTeamState extends State<AssembleTeam> {
                 // height: 52,
                 child: ElevatedButton(
                   onPressed: () {
+                    OnlyPosition.getPosition(0);
                     //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
                   },
                   style: ElevatedButton.styleFrom(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fantasy_football/ui/first/intro_page.dart';
+import 'package:fantasy_football/ui/main/home/home_page.dart';
 import 'package:fantasy_football/ui/main/login/login_page.dart';
 import 'package:flutter/material.dart';
 

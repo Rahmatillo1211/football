@@ -1,25 +1,27 @@
+import 'package:fantasy_football/ui/main/league/additional_league.dart';
 import 'package:fantasy_football/utils/list/rating_list.dart';
 import 'package:fantasy_football/widgets/container/rating_conatiner.dart';
 import 'package:flutter/material.dart';
 
-class RatingPage extends StatelessWidget {
-  const RatingPage({super.key});
+class LeagueRound extends StatelessWidget {
+  const LeagueRound({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(context),
+
       appBar: AppBar(
         backgroundColor: Colors.white10,
         elevation: 0,
         title: const Text(
-          'Reyting',
+          '1 - 3 Tur',
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.w400,
           ),
         ),
       ),
+      body: _buildBody(context),
     );
   }
 
@@ -31,7 +33,7 @@ class RatingPage extends StatelessWidget {
             titleNumber: '#',
             teamNames: 'Jamoalar',
             typeNumber: 'Shu Tur',
-            ptsNumber: 'PTS',
+            ptsNumber: 'Hammasi',
             imageName: '',
             isMain: false,
             firstFour: false,
@@ -39,7 +41,41 @@ class RatingPage extends StatelessWidget {
             thirdOne: false,
             isMine: false,
           ),
-          _buildRatingContainer(ratingList)
+          _buildRatingContainer(ratingList),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+
+                SizedBox(height: 20,),
+                SizedBox(
+                  width: double.infinity,
+                  // height: 52,
+                  child: ElevatedButton(
+                    onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdditionalLeague(),),);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00B900),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "Qo'shimcha Ligalar",
+                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
         ],
       ),
     );

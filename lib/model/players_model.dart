@@ -37,23 +37,23 @@ class Player {
 }
 
 
-class PlayersModel{
-  List <Player>  players;
-
-
-  PlayersModel({
-    required this.players,
-
-  });
-
-  factory PlayersModel.fromJson(Map<String, dynamic> json) => PlayersModel(
-    players: json["players"],
-
-  );
-
-  Map<String, dynamic> toJson() => {
-    "players": players,
-
-  };
-}
+// class PlayersModel{
+//   List <Player>  players;
+//
+//
+//   PlayersModel({
+//     required this.players,
+//
+//   });
+//
+//   factory PlayersModel.fromJson(Map<String, dynamic> json) => PlayersModel(
+//     players: json["players"],
+//
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     "players": players,
+//
+//   };
+// }
 

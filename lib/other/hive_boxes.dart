@@ -1,11 +1,9 @@
 import 'package:hive_flutter/adapters.dart';
 
-import '../model/only_position.dart';
-
-Future<void > hiveBoxes()async{
+Future<void> hiveBoxes() async {
   await Hive.initFlutter();
   await Hive.openBox("email_password");
-  await Hive.openBox<PlayerPosition>('playerPositions');
+  await Hive.openBox('playerPositions');
 
   await Hive.openBox("Players");
   await Hive.openBox("Places");

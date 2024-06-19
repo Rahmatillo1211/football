@@ -10,18 +10,35 @@ class PlayerService {
   static String PLAYERS = "/api/v1/players";
   static String PLAYERS_ID = "/api/v1/players/{id}";
   static String LOGOUT = "/auth/logout";
-  static Map<String, String> header = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoienhjdmJubW1AZ2FtaWwuY29tIiwiaWF0IjoxNzE4NzE1NDA1LCJleHAiOjE3MTg3MTkwMDV9.sQnWKHginW5s8a5YFrdRJvpeKh4rqq6ir_umyYfSO'};
+  static Map<String, String> header = { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZmVyYW5naXpAZ21haWwuY29tIiwiaWF0IjoxNzE4NzgwNzQ0LCJleHAiOjE3MTg3ODQzNDR9.lwc4kJHKIGsnuQvGm1rNAnVeyaJ8UiuwOLipGNMDaIo'};
 //'Content-type': 'application/json',
-  static Future<PlayersModel?> allPlayers() async {
-    Uri uri = Uri.https(BASE, PLAYERS);
-    var response = await get(uri, headers: header);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      PlayersModel sdn = PlayersModel.fromJson(json.decode(response.body));
-       Logger().i(sdn.players);
+//   static Future<Player?> allPlayers() async {
+//     Uri uri = Uri.https(BASE, PLAYERS);
+//     var response = await get(uri, headers: header);
+//     if (response.statusCode == 200 || response.statusCode == 201) {
+//       Player sdn = Player.fromJson(json.decode(response.body));
+//        Logger().i(sdn.name);
+//       List<Player> welcomeFromJson(String str) => List<Player>.from(json.decode(str).map((x) => Player.fromJson(x)));
+//
+//    //   String welcomeToJson(List<Player> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+//
+//       return Player.fromJson(json.decode(response.body));
+//     }
+//     Logger().d(response.statusCode);
+//     return null;
+//   }
 
-      return PlayersModel.fromJson(json.decode(response.body));
+  static Future<List<Player>?> parsingResponse2() async {
+    Uri uri = Uri.https(BASE, PLAYERS, {});
+    var response = await get(uri, headers: header);
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      final data = List<Player>.from(json.map((mp) => Player.fromJson(mp)));
+      Logger().i(data);
+      return data;
     }
-    Logger().d(response.statusCode);
+
     return null;
   }
+
 }

@@ -1,6 +1,8 @@
+import 'package:fantasy_football/controller/players_list.dart';
 import 'package:fantasy_football/service/hive_service/only_position.dart';
 import 'package:fantasy_football/service/hive_service/selection_section.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../other/lists.dart';
 
@@ -42,6 +44,7 @@ class _SelectionTeamState extends State<SelectionTeam> {
   int? currentSelectedPosition;
 
   // get teamSection => null;
+  PlayersList players = Get.put(PlayersList());
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +96,6 @@ class _SelectionTeamState extends State<SelectionTeam> {
                       onTap: playerSelected[index]
                           ? null
                           : () {
-                        OnlyPosition.updatePlayerPosition(index, index);
                               setState(() {
                                 if (currentSelectedPosition != null) {
                                   selectedPlayers[currentSelectedPosition!] =
@@ -111,7 +113,7 @@ class _SelectionTeamState extends State<SelectionTeam> {
                     playerSelected[index]
                         ? Container(width: 0, height: 0) // Hide the text
                         : Text(
-                            playerNames[index],
+                            players.playersList[index].name.split(' ').first,
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -203,6 +205,12 @@ class _SelectionTeamState extends State<SelectionTeam> {
                   if (selectedPlayers.containsKey(positionKey)) {
                     int playerIndex = selectedPlayers[positionKey]!;
                     playerSelected[playerIndex] = false;
+                    OnlyPosition.savePosition(
+                        players.playersList[selectedPlayers[positionKey]!].name
+                            .split(' ')
+                            .first,
+                        i);
+
                     selectedPlayers.remove(positionKey);
                   } else {
                     currentSelectedPosition = positionKey;
@@ -215,7 +223,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
                     children: [
                       Image.asset("assets/images/player.png"),
                       Text(
-                        playerNames[selectedPlayers[positionKey]!],
+                        players.playersList[selectedPlayers[positionKey]!].name
+                            .split(' ')
+                            .first,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
