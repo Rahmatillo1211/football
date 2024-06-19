@@ -101,7 +101,7 @@ int _selectedIndex =0;
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Row(
