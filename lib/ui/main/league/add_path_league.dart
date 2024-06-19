@@ -19,7 +19,7 @@ class _AddPathLeagueState extends State<AddPathLeague> {
             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.grey[200],
+              color: Colors.grey[100],
               border: Border.all(color: Color(0xff636363), width: 2),
             ),
             height: 60,
