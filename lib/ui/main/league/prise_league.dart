@@ -44,19 +44,12 @@ class PriseLeague extends StatelessWidget {
               ),
             ),
             height: 100,
-            child: const Row(
+            child:  Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                CircleAvatar(
-                  radius:14.5,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.add_circle,
-                    size: 31,
-                    color: Color(0xFF00B900),
-                  ),
-                ),  Padding(
+                Image.asset("assets/images/img.png"),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text("Rasm kiriting",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
                 ),

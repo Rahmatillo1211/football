@@ -3,18 +3,19 @@ import 'package:fantasy_football/service/hive_service/selection_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../other/lists.dart';
+import '../../../other/lists.dart';
 
-class Example extends StatefulWidget {
-  const Example({super.key});
+
+class MyTeam extends StatefulWidget {
+  const MyTeam({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ExampleState();
+    return _MyTeamState();
   }
 }
 
-class _ExampleState extends State<Example> {
+class _MyTeamState extends State<MyTeam> {
   int _selectedIndex = 0;
 
   @override
@@ -66,7 +67,7 @@ class _ExampleState extends State<Example> {
     return Column(
       children: <Widget>[
         const Padding(
-          padding: EdgeInsets.only(left: 8.0, bottom: 2),
+          padding: EdgeInsets.only(left: 10.0, bottom: 2),
           child: Row(
             children: [
               Text(
@@ -260,14 +261,14 @@ class _ExampleState extends State<Example> {
             )
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset("assets/images/player.png"),
-                    Text(
-                      "Nomi",
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
+              children: [
+                Image.asset("assets/images/player.png"),
+                Text(
+                  "Nomi",
+                  style: const TextStyle(color: Colors.white),
                 ),
+              ],
+            ),
           ),
         ),
       );

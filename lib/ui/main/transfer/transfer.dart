@@ -1,20 +1,20 @@
 import 'package:fantasy_football/service/hive_service/only_position.dart';
 import 'package:fantasy_football/service/hive_service/selection_section.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../../other/lists.dart';
+import '../../../other/lists.dart';
 
-class Example extends StatefulWidget {
-  const Example({super.key});
+class Transfer extends StatefulWidget {
+  const Transfer({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ExampleState();
+    return _TransferState();
   }
 }
 
-class _ExampleState extends State<Example> {
+class _TransferState extends State<Transfer> {
   int _selectedIndex = 0;
 
   @override
@@ -51,7 +51,7 @@ class _ExampleState extends State<Example> {
         backgroundColor: Colors.white10,
         elevation: 0,
         title: const Text(
-          'Mening Jamoam',
+          'Transfer',
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.w400,
@@ -66,7 +66,7 @@ class _ExampleState extends State<Example> {
     return Column(
       children: <Widget>[
         const Padding(
-          padding: EdgeInsets.only(left: 8.0, bottom: 2),
+          padding: EdgeInsets.only(left: 10.0, bottom: 2),
           child: Row(
             children: [
               Text(
@@ -77,7 +77,24 @@ class _ExampleState extends State<Example> {
                 "Arsenal",
                 style: TextStyle(fontSize: 16, color: Color(0xff29C126)),
               ),
-              Image(image: AssetImage("assets/team_images/img_3.png"),height: 20,width: 20,)
+              Image(
+                image: AssetImage("assets/team_images/img_3.png"),
+                height: 20,
+                width: 20,
+              ),
+              Spacer(),
+              Text(
+                "100",
+                style: TextStyle(fontSize: 14, color: Color(0xFF00B900)),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Icon(
+                  CupertinoIcons.money_dollar_circle_fill,
+                  size: 16,
+                  color: Color(0xFF00B900),
+                ),
+              )
             ],
           ),
         ),
@@ -114,30 +131,30 @@ class _ExampleState extends State<Example> {
             borderRadius: BorderRadius.circular(10),
           ),
           width: 350,
-          height: 115,
+          height: 120,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (_, index) {
               return Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
                 child: Column(
                   children: [
                     InkWell(
                       onTap: playerSelected[index]
                           ? null
                           : () {
-                        OnlyPosition.updatePlayerPosition(index, index);
-                        setState(() {
-                          if (currentSelectedPosition != null) {
-                            selectedPlayers[currentSelectedPosition!] =
-                                index;
-                            playerSelected[index] = true;
-                            currentSelectedPosition = null;
-                          }
-                        });
-                      },
+                              OnlyPosition.updatePlayerPosition(index, index);
+                              setState(() {
+                                if (currentSelectedPosition != null) {
+                                  selectedPlayers[currentSelectedPosition!] =
+                                      index;
+                                  playerSelected[index] = true;
+                                  currentSelectedPosition = null;
+                                }
+                              });
+                            },
                       child: playerSelected[index]
                           ? Container(width: 0, height: 0) // Hide the image
                           : Image.asset("assets/images/player.png"),
@@ -146,14 +163,35 @@ class _ExampleState extends State<Example> {
                     playerSelected[index]
                         ? Container(width: 0, height: 0) // Hide the text
                         : Text(
-                      playerNames[index],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                            playerNames[index],
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                     const SizedBox(height: 6),
-                    SvgPicture.asset("assets/images/reset.svg",height: 16,width: 16,color: Colors.white,),
-
+                    Row(
+                      children: [
+                        Text(
+                          "3",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        Icon(
+                          CupertinoIcons.money_dollar,
+                          size: 16,
+                          color: Colors.green[900],
+                        ),
+                        Icon(
+                          CupertinoIcons.xmark_circle_fill,
+                          size: 16,
+                          color: Colors.red[900],
+                        ),
+                        Icon(
+                          CupertinoIcons.checkmark_circle_fill,
+                          size: 16,
+                          color: Colors.green[900],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               );
@@ -237,7 +275,7 @@ class _ExampleState extends State<Example> {
           child: InkWell(
             onTap: () {
               setState(
-                    () {
+                () {
                   if (selectedPlayers.containsKey(positionKey)) {
                     int playerIndex = selectedPlayers[positionKey]!;
                     playerSelected[playerIndex] = false;
@@ -250,24 +288,47 @@ class _ExampleState extends State<Example> {
             },
             child: selectedPlayers.containsKey(positionKey)
                 ? Column(
-              children: [
-                Image.asset("assets/images/player.png"),
-                Text(
-                  playerNames[selectedPlayers[positionKey]!],
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            )
+                    children: [
+                      Image.asset("assets/images/player.png"),
+                      Text(
+                        playerNames[selectedPlayers[positionKey]!],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  )
                 : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset("assets/images/player.png"),
-                    Text(
-                      "Nomi",
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset("assets/images/player.png"),
+                      Text(
+                        "Nomi",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "3",
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          Icon(
+                            CupertinoIcons.money_dollar,
+                            size: 16,
+                            color: Colors.green[900],
+                          ),
+                          Icon(
+                            CupertinoIcons.xmark_circle_fill,
+                            size: 16,
+                            color: Colors.red[900],
+                          ),
+                          Icon(
+                            CupertinoIcons.checkmark_circle_fill,
+                            size: 16,
+                            color: Colors.green[900],
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
           ),
         ),
       );
@@ -281,7 +342,7 @@ class _ExampleState extends State<Example> {
       SelectionSection.saveSection(teamSection[newIndex]);
 
       setState(
-            () {
+        () {
           _selectedIndex = newIndex;
           selectedPlayers.clear();
           playerSelected = List.generate(11, (_) => false);
@@ -308,9 +369,9 @@ class _ExampleState extends State<Example> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[0],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[0],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -319,9 +380,9 @@ class _ExampleState extends State<Example> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[1],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[1],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -330,9 +391,9 @@ class _ExampleState extends State<Example> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[2],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[2],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -341,9 +402,9 @@ class _ExampleState extends State<Example> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[3],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[3],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
           ],

@@ -1,3 +1,5 @@
+import 'package:fantasy_football/ui/main/my_team/my_team.dart';
+import 'package:fantasy_football/ui/main/transfer/transfer.dart';
 import 'package:fantasy_football/ui/other_pages/rating_page.dart';
 import 'package:fantasy_football/ui/test_page.dart';
 
@@ -14,7 +16,7 @@ List<Map<String, dynamic>> buttomData = [
   {
     'image': 'assets/images/team.png',
     'text': 'Mening Jamoam',
-    'navigation': MyWidget(),
+    'navigation': const MyTeam(),
     'text2': ''
 
   },
@@ -27,7 +29,7 @@ List<Map<String, dynamic>> buttomData = [
   {
     'image': 'assets/images/ecschange.png',
     'text': 'Transfer',
-    'navigation': MyWidget(),
+    'navigation': const Transfer(),
     'text2': ''
 
   },

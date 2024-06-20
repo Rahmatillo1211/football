@@ -5,8 +5,6 @@ import 'package:fantasy_football/widgets/intro_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../widgets/example.dart';
-
 class BaseIntroPage extends StatefulWidget {
   static const String id = "base_intro_page";
 
@@ -45,12 +43,12 @@ class _BaseIntroPageState extends State<BaseIntroPage> {
                   index = selectedIndex;
                 });
               },
-              children:  const [
+              children: const [
                 IntroPages(index: 0),
                 IntroPages(index: 1),
                 IntroPages(index: 2),
                 SelectionTeam(),
-                SelectionCapitan(),
+                SelectionCaptain(),
                 AssembleTeam()
               ],
             ),
