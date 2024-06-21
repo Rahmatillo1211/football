@@ -16,18 +16,18 @@ class _AddPathLeagueState extends State<AddPathLeague> {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Colors.grey[100],
-              border: Border.all(color: Color(0xff636363), width: 2),
+              border: Border.all(color: const Color(0xff636363), width: 2),
             ),
             height: 60,
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: TextField(
                 controller: pathController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: "Silka Kiriting",
                     hintStyle: TextStyle(fontSize: 18)),
@@ -36,7 +36,7 @@ class _AddPathLeagueState extends State<AddPathLeague> {
           ),
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(

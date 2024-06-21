@@ -60,7 +60,7 @@ class BalansPage extends StatelessWidget {
             ),
             _buildButton(buttomData2),
             const DropDownWidget(
-              text: 'text',
+              text: 'Full paket',
               image: 'assets/images/rating.png',
               text2: '1000 coin',
             ),

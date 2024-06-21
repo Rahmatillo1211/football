@@ -51,83 +51,85 @@ class _SelectionTeamState extends State<SelectionTeam> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(right: 20),
-          decoration: const BoxDecoration(
-            color: Color(0xff1F9059),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          width: 350,
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Text(
-                "Kamanda Tering",
-                style: TextStyle(fontSize: 20),
-              ),
-              buildDrop(context),
-            ],
-          ),
-        ),
-        _buildStack(),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          width: 350,
-          height: 100,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: playerSelected[index]
-                          ? null
-                          : () {
-                        OnlyPosition.updatePlayerPosition(index, index);
-                              setState(() {
-                                if (currentSelectedPosition != null) {
-                                  selectedPlayers[currentSelectedPosition!] =
-                                      index;
-                                  playerSelected[index] = true;
-                                  currentSelectedPosition = null;
-                                }
-                              });
-                            },
-                      child: playerSelected[index]
-                          ? Container(width: 0, height: 0) // Hide the image
-                          : Image.asset("assets/images/player.png"),
-                    ),
-                    const SizedBox(height: 10),
-                    playerSelected[index]
-                        ? Container(width: 0, height: 0) // Hide the text
-                        : Text(
-                            playerNames[index],
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                  ],
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(right: 20),
+            decoration: const BoxDecoration(
+              color: Color(0xff1F9059),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            width: 350,
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text(
+                  "Kamanda Tering",
+                  style: TextStyle(fontSize: 20),
                 ),
-              );
-            },
-            separatorBuilder: (_, index) {
-              return const SizedBox(width: 10);
-            },
-            itemCount: playerNames.length,
+                buildDrop(context),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-      ],
+          _buildStack(),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blueGrey,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            width: 350,
+            height: 100,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: playerSelected[index]
+                            ? null
+                            : () {
+                          OnlyPosition.updatePlayerPosition(index, index);
+                                setState(() {
+                                  if (currentSelectedPosition != null) {
+                                    selectedPlayers[currentSelectedPosition!] =
+                                        index;
+                                    playerSelected[index] = true;
+                                    currentSelectedPosition = null;
+                                  }
+                                });
+                              },
+                        child: playerSelected[index]
+                            ? Container(width: 0, height: 0) // Hide the image
+                            : Image.asset("assets/images/player.png"),
+                      ),
+                      const SizedBox(height: 10),
+                      playerSelected[index]
+                          ? Container(width: 0, height: 0) // Hide the text
+                          : Text(
+                              playerNames[index],
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (_, index) {
+                return const SizedBox(width: 10);
+              },
+              itemCount: playerNames.length,
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 
@@ -171,7 +173,7 @@ class _SelectionTeamState extends State<SelectionTeam> {
     List<Widget> positions = [];
     double fieldWidth = MediaQuery.of(context).size.width;
     double fieldHeight = MediaQuery.of(context).size.height;
-    double verticalSpacing = 110.0;
+    double verticalSpacing = 90.0;
 
     positions.addAll(_buildLine(
         goalkeepers, fieldHeight / 2 - verticalSpacing * 3, fieldWidth - 15));
