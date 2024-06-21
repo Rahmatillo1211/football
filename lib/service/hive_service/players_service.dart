@@ -12,8 +12,8 @@ class HiveService extends GetxController {
 
 
   var objBox = Hive.box('Players');
-  var tasksList = <PlayersModel>[].obs;
-  var allTasks = <PlayersModel>[].obs;
+  var tasksList = <Player>[].obs;
+  var allTasks = <Player>[].obs;
 
   ///Hive yordamida obj saqlash :date time now orqali key berish
   storedObj({required var obj, required String objKey}) {
@@ -23,13 +23,13 @@ class HiveService extends GetxController {
   }
 
   ///Hamma Tasks objni olish funksiyasi
-  List<PlayersModel> getObj() {
+  List<Player> getObj() {
     tasksList.clear();
     allTasks.clear();
     for (var key in objBox.keys) {
       String stringObj = objBox.get(key);
       Map<String, dynamic> map = jsonDecode(stringObj);
-      PlayersModel task = PlayersModel.fromJson(map);
+      Player task = Player.fromJson(map);
       tasksList.add(task);
       allTasks.add(task);
     }

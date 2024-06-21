@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fantasy_football/ui/first/intro_page.dart';
+import 'package:fantasy_football/ui/main/calendar/calendar.dart';
 import 'package:fantasy_football/ui/main/home/home_page.dart';
 import 'package:fantasy_football/ui/main/login/login_page.dart';
 import 'package:fantasy_football/ui/main/transfer/transfer.dart';
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const BaseIntroPage(),
+      routes: {
+        CalendarPage.id:(context)=>const CalendarPage()
+      },
     );
   }
 }

@@ -24,10 +24,12 @@ class _TransferState extends State<Transfer> {
     check();
   }
 
-  String s = SelectionSection.getSection() ?? "1-3-4-3";
+  String s =  "1-3-4-3";
 
-  void check() {
+  void check() async{
+    var team = await PrefSection.getSection();
     setState(() {
+      s= team!;
       if (s == teamSection[1]) {
         _selectedIndex = 1;
       } else if (s == teamSection[2]) {
@@ -117,7 +119,7 @@ class _TransferState extends State<Transfer> {
               Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: Text(
-                  section,
+                  s,
                   style: TextStyle(fontSize: 20),
                 ),
               )
@@ -339,7 +341,6 @@ class _TransferState extends State<Transfer> {
   void _onDropdownChanged(int? newIndex) {
     if (newIndex != null) {
       print("$newIndex ++++++++++++++++++++++++++++++++++++++++++++");
-      SelectionSection.saveSection(teamSection[newIndex]);
 
       setState(
         () {

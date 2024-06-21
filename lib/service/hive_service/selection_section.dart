@@ -1,15 +1,19 @@
-import 'package:hive/hive.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SelectionSection {
-  static var box = Hive.box('mySection');
 
-  static void saveSection(String section) {
-    box.put('section', section);
+
+class PrefSection {
+  static void saveSection(String section) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+Logger().i("saves success");
+    await prefs.setString("section", section);
   }
 
-  static  getSection() {
-    var name = box.get('section');
-    print('Name: $name');
-    return name;
+  static Future<String?> getSection() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String section = prefs.getString("section")!;
+    Logger().w(section);
+  return section ;
   }
 }

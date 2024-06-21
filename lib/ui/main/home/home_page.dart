@@ -1,9 +1,10 @@
+import 'package:fantasy_football/ui/main/calendar/calendar.dart';
 import 'package:fantasy_football/ui/main/home/balans_page.dart';
 import 'package:fantasy_football/ui/main/home/sozlamar_page.dart';
 import 'package:fantasy_football/utils/list/buttom_list.dart';
-
 import 'package:fantasy_football/widgets/buttoms/buttom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -83,12 +85,9 @@ class _HomePageState extends State<HomePage> {
           text: data[index]['text'],
           image: data[index]['image'],
           pressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => data[index]['navigation'],
-              ),
-            );
+            data[index]['navigation'] != CalendarPage()
+                ? Get.to(data[index]['navigation'])
+                : Navigator.pushReplacementNamed(context, CalendarPage.id);
           },
         );
       },

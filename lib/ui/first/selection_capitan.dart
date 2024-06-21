@@ -1,6 +1,7 @@
 
 import 'package:fantasy_football/service/hive_service/selection_section.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 import '../../other/lists.dart';
 
@@ -34,12 +35,21 @@ class _SelectionCaptainState extends State<SelectionCaptain> {
   @override
   void initState() {
     super.initState();
+    change();
     _loadFormation();
-  }
 
-  void _loadFormation() {
+  }
+void change()async{
+  var team =await PrefSection.getSection() ;
+ setState(() {
+   formation =team!;
+ });
+}
+  void _loadFormation(){
+    Logger().w(PrefSection.getSection());
     setState(() {
-      formation = SelectionSection.getSection() ?? "1-3-4-3";
+     // formation = SelectionSection.getSection() ?? "1-3-4-3";
+
       if (formation == teamSection[1]) {
         _selectedIndex = 1;
       } else if (formation == teamSection[2]) {

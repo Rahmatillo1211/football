@@ -21,7 +21,9 @@ List<Map<String, String>> carouselData = [
 
 ];
 List<String> teamSection = ['1-3-4-3', '1-3-5-2', '1-4-5-1', '1-4-4-2'];
-String section = SelectionSection.getSection() ?? "1-3-4-3";
+
+//String section = SelectionSection.getSection() ?? "1-3-4-3";
+
 List<String> playerNames = [
   "Player 1",
   "Player 2",

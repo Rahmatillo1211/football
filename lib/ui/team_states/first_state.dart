@@ -25,10 +25,10 @@ class _FirstStateState extends State<FirstState> {
 
 
 
-  void check() {
-
+  void check()async {
+var team = await PrefSection.getSection();
     setState(() {
-     s = SelectionSection.getSection() ?? "1-3-4-3";
+     s = team!;
       if (s == teamSection[1]) {
         _selectedIndex = 1;
       } else if (s == teamSection[2]) {
@@ -172,7 +172,6 @@ class _FirstStateState extends State<FirstState> {
 
   void _onDropdownChanged(int? newIndex) {
     if (newIndex != null) {
-      SelectionSection.saveSection(teamSection[newIndex]);
 
       setState(
         () {

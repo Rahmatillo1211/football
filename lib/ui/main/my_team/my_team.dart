@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../other/lists.dart';
 
-
 class MyTeam extends StatefulWidget {
   const MyTeam({super.key});
 
@@ -25,10 +24,12 @@ class _MyTeamState extends State<MyTeam> {
     check();
   }
 
-  String s = SelectionSection.getSection() ?? "1-3-4-3";
+  String s = "1-3-4-3";
 
-  void check() {
+  void check() async {
+    var team = await PrefSection.getSection();
     setState(() {
+      s = team!;
       if (s == teamSection[1]) {
         _selectedIndex = 1;
       } else if (s == teamSection[2]) {
@@ -78,7 +79,11 @@ class _MyTeamState extends State<MyTeam> {
                 "Arsenal",
                 style: TextStyle(fontSize: 16, color: Color(0xff29C126)),
               ),
-              Image(image: AssetImage("assets/team_images/img_3.png"),height: 20,width: 20,)
+              Image(
+                image: AssetImage("assets/team_images/img_3.png"),
+                height: 20,
+                width: 20,
+              )
             ],
           ),
         ),
@@ -101,7 +106,7 @@ class _MyTeamState extends State<MyTeam> {
               Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: Text(
-                  section,
+                  s,
                   style: TextStyle(fontSize: 20),
                 ),
               )
@@ -122,23 +127,23 @@ class _MyTeamState extends State<MyTeam> {
             itemBuilder: (_, index) {
               return Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
                 child: Column(
                   children: [
                     InkWell(
                       onTap: playerSelected[index]
                           ? null
                           : () {
-                        OnlyPosition.updatePlayerPosition(index, index);
-                        setState(() {
-                          if (currentSelectedPosition != null) {
-                            selectedPlayers[currentSelectedPosition!] =
-                                index;
-                            playerSelected[index] = true;
-                            currentSelectedPosition = null;
-                          }
-                        });
-                      },
+                              OnlyPosition.updatePlayerPosition(index, index);
+                              setState(() {
+                                if (currentSelectedPosition != null) {
+                                  selectedPlayers[currentSelectedPosition!] =
+                                      index;
+                                  playerSelected[index] = true;
+                                  currentSelectedPosition = null;
+                                }
+                              });
+                            },
                       child: playerSelected[index]
                           ? Container(width: 0, height: 0) // Hide the image
                           : Image.asset("assets/images/player.png"),
@@ -147,14 +152,18 @@ class _MyTeamState extends State<MyTeam> {
                     playerSelected[index]
                         ? Container(width: 0, height: 0) // Hide the text
                         : Text(
-                      playerNames[index],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                            playerNames[index],
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                     const SizedBox(height: 6),
-                    SvgPicture.asset("assets/images/reset.svg",height: 16,width: 16,color: Colors.white,),
-
+                    SvgPicture.asset(
+                      "assets/images/reset.svg",
+                      height: 16,
+                      width: 16,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               );
@@ -238,7 +247,7 @@ class _MyTeamState extends State<MyTeam> {
           child: InkWell(
             onTap: () {
               setState(
-                    () {
+                () {
                   if (selectedPlayers.containsKey(positionKey)) {
                     int playerIndex = selectedPlayers[positionKey]!;
                     playerSelected[playerIndex] = false;
@@ -251,24 +260,24 @@ class _MyTeamState extends State<MyTeam> {
             },
             child: selectedPlayers.containsKey(positionKey)
                 ? Column(
-              children: [
-                Image.asset("assets/images/player.png"),
-                Text(
-                  playerNames[selectedPlayers[positionKey]!],
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            )
+                    children: [
+                      Image.asset("assets/images/player.png"),
+                      Text(
+                        playerNames[selectedPlayers[positionKey]!],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  )
                 : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset("assets/images/player.png"),
-                Text(
-                  "Nomi",
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset("assets/images/player.png"),
+                      Text(
+                        "Nomi",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
           ),
         ),
       );
@@ -279,10 +288,9 @@ class _MyTeamState extends State<MyTeam> {
   void _onDropdownChanged(int? newIndex) {
     if (newIndex != null) {
       print("$newIndex ++++++++++++++++++++++++++++++++++++++++++++");
-      SelectionSection.saveSection(teamSection[newIndex]);
 
       setState(
-            () {
+        () {
           _selectedIndex = newIndex;
           selectedPlayers.clear();
           playerSelected = List.generate(11, (_) => false);
@@ -309,9 +317,9 @@ class _MyTeamState extends State<MyTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[0],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[0],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -320,9 +328,9 @@ class _MyTeamState extends State<MyTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[1],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[1],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -331,9 +339,9 @@ class _MyTeamState extends State<MyTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[2],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[2],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -342,9 +350,9 @@ class _MyTeamState extends State<MyTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                      teamSection[3],
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  teamSection[3],
+                  style: TextStyle(fontSize: 20),
+                )),
               ),
             ),
           ],

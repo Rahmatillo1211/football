@@ -128,8 +128,14 @@ class _AdditionalLeagueState extends State<AdditionalLeague> {
                 ],
               ),
               Expanded(child: Slider(
+                max: 10,
+                  min: 0,
                   activeColor:const Color(0xFF00B900) ,
-                  value: index, onChanged: (index){})),
+                  value: index, onChanged: (newIndex){
+                  setState(() {
+                    index= newIndex;
+                  });
+              })),
               const Column(
                 children: [
                   Padding(

@@ -1,40 +1,33 @@
-import 'package:fantasy_football/api/player_service.dart';
-import 'package:fantasy_football/controller/players_list.dart';
-import 'package:fantasy_football/service/hive_service/only_position.dart';
 import 'package:fantasy_football/service/hive_service/selection_section.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../other/lists.dart';
+import '../../../other/lists.dart';
 
-class SelectionTeam extends StatefulWidget {
-  const SelectionTeam({super.key});
+class Points extends StatefulWidget {
+  const Points({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _SelectionTeamState();
+    return _PointsState();
   }
 }
 
-class _SelectionTeamState extends State<SelectionTeam> {
+class _PointsState extends State<Points> {
   int _selectedIndex = 0;
-  PlayersList playersList = Get.put(PlayersList());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     check();
-    getData();
   }
 
- // String s = SelectionSection.getSection() ?? "1-3-4-3";
-  String s =  "1-3-4-3";
+  String s = "1-3-4-3";
 
   void check() async {
     var team = await PrefSection.getSection();
-
     setState(() {
       s = team!;
       if (s == teamSection[1]) {
@@ -47,12 +40,6 @@ class _SelectionTeamState extends State<SelectionTeam> {
     });
   }
 
-  void getData() async {
-    var data = await PlayerService.parsingResponse() ?? [];
-    playersList.getPlayers(data);
-    Logger().i(data[0].name);
-  }
-
   List<bool> playerSelected = List.generate(11, (_) => false);
   Map<int, int> selectedPlayers = {};
   int? currentSelectedPosition;
@@ -62,6 +49,17 @@ class _SelectionTeamState extends State<SelectionTeam> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white10,
+        elevation: 0,
+        title: const Text(
+          'Ochkolar',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
       body: _buildBody(context),
     );
   }
@@ -69,80 +67,67 @@ class _SelectionTeamState extends State<SelectionTeam> {
   Widget _buildBody(BuildContext context) {
     return Column(
       children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 10.0, bottom: 2, right: 8),
+          child: Row(
+            children: <Widget>[
+              Text(
+                "Jamoam   ",
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                "Arsenal",
+                style: TextStyle(fontSize: 16, color: Color(0xff29C126)),
+              ),
+              Image(
+                image: AssetImage("assets/team_images/img_3.png"),
+                height: 20,
+                width: 20,
+              ),
+              Spacer(),
+              Text(
+                "25",
+                style: TextStyle(fontSize: 16, color: Color(0xff29C126)),
+              ),
+              Text(
+                " PTS  ",
+                style: TextStyle(fontSize: 16),
+              ),
+              SvgPicture.asset(
+                "assets/images/point.svg",
+                height: 20,
+                width: 20,
+              )
+            ],
+          ),
+        ),
         Container(
-          padding: const EdgeInsets.only(right: 20),
           decoration: const BoxDecoration(
             color: Color(0xff1F9059),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(5),
+              bottomRight: Radius.circular(5),
+            ),
           ),
-          width: 350,
+          margin: EdgeInsets.symmetric(horizontal: 8),
+          width: 433,
           height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text(
-                "Kamanda Tering",
-                style: TextStyle(fontSize: 20),
-              ),
-              buildDrop(context),
+              Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: Text(
+                  s,
+                  style: TextStyle(fontSize: 20),
+                ),
+              )
             ],
           ),
         ),
         _buildStack(),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          width: 350,
-          height: 100,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: playerSelected[index]
-                          ? null
-                          : () {
-                              OnlyPosition.updatePlayerPosition(index, index);
-                              setState(() {
-                                if (currentSelectedPosition != null) {
-                                  selectedPlayers[currentSelectedPosition!] =
-                                      index;
-                                  playerSelected[index] = true;
-                                  currentSelectedPosition = null;
-                                }
-                              });
-                            },
-                      child: playerSelected[index]
-                          ? Container(width: 0, height: 0) // Hide the image
-                          : Image.asset("assets/images/player.png"),
-                    ),
-                    const SizedBox(height: 10),
-                    playerSelected[index]
-                        ? Container(width: 0, height: 0) // Hide the text
-                        : Text(
-                            playerNames[index],
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (_, index) {
-              return const SizedBox(width: 10);
-            },
-            itemCount: playerNames.length,
-          ),
-        ),
-        const SizedBox(height: 10),
       ],
     );
   }
@@ -236,7 +221,16 @@ class _SelectionTeamState extends State<SelectionTeam> {
                       ),
                     ],
                   )
-                : Image.asset("assets/images/add_pleyer.png"),
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset("assets/images/player.png"),
+                      Text(
+                        "Nomi",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
           ),
         ),
       );
@@ -247,7 +241,6 @@ class _SelectionTeamState extends State<SelectionTeam> {
   void _onDropdownChanged(int? newIndex) {
     if (newIndex != null) {
       print("$newIndex ++++++++++++++++++++++++++++++++++++++++++++");
-      PrefSection.saveSection(teamSection[newIndex]);
 
       setState(
         () {
