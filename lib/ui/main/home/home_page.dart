@@ -1,6 +1,6 @@
 import 'package:fantasy_football/ui/main/calendar/calendar.dart';
 import 'package:fantasy_football/ui/main/home/balans_page.dart';
-import 'package:fantasy_football/ui/main/home/sozlamar_page.dart';
+import 'package:fantasy_football/ui/main/settings/sozlamar_page.dart';
 import 'package:fantasy_football/utils/list/buttom_list.dart';
 import 'package:fantasy_football/widgets/buttoms/buttom_widget.dart';
 import 'package:flutter/material.dart';

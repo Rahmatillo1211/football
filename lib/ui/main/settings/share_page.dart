@@ -9,13 +9,7 @@ class SharePage extends StatelessWidget {
     return Scaffold(
       body: _buildBody(context),
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-          color: Colors.black,
-          onPressed: () {},
-        ),
+
         elevation: 0,
         backgroundColor: Colors.white10,
         title: const Text(

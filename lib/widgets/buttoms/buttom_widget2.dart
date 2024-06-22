@@ -39,7 +39,7 @@ class ButtomWidget2 extends StatelessWidget {
                     labelText: 'Enter some text',
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(); 

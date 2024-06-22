@@ -1,4 +1,3 @@
-import 'package:fantasy_football/api/auth_service.dart';
 import 'package:fantasy_football/service/url_launcher_service.dart';
 import 'package:fantasy_football/utils/list/buttom_list3.dart';
 import 'package:fantasy_football/widgets/buttoms/buttom_widget.dart';
@@ -8,11 +7,6 @@ import 'package:logger/logger.dart';
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
-  void logout() async {
-    var response =
-        await AuthService.logout({"email": "akramovadilshoda16@gmail.com"});
-    Logger().i(response);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +27,7 @@ class SettingScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              logout();
+
             },
             icon: Icon(
               Icons.exit_to_app,

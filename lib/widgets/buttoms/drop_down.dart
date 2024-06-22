@@ -167,6 +167,12 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey[200],
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(0),
+                          bottomRight: Radius.circular(0),
+                        ),
+                      ),
                       elevation: 0,
                     ),
                     onPressed: () {

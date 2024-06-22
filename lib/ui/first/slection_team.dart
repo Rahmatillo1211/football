@@ -1,10 +1,8 @@
-import 'package:fantasy_football/api/player_service.dart';
 import 'package:fantasy_football/controller/players_list.dart';
 import 'package:fantasy_football/service/hive_service/only_position.dart';
 import 'package:fantasy_football/service/hive_service/selection_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 import '../../other/lists.dart';
 
@@ -26,10 +24,10 @@ class _SelectionTeamState extends State<SelectionTeam> {
     // TODO: implement initState
     super.initState();
     check();
-    getData();
+
   }
 
- // String s = SelectionSection.getSection() ?? "1-3-4-3";
+  // String s = SelectionSection.getSection() ?? "1-3-4-3";
   String s =  "1-3-4-3";
 
   void check() async {
@@ -47,11 +45,6 @@ class _SelectionTeamState extends State<SelectionTeam> {
     });
   }
 
-  void getData() async {
-    var data = await PlayerService.parsingResponse() ?? [];
-    playersList.getPlayers(data);
-    Logger().i(data[0].name);
-  }
 
   List<bool> playerSelected = List.generate(11, (_) => false);
   Map<int, int> selectedPlayers = {};
@@ -102,23 +95,23 @@ class _SelectionTeamState extends State<SelectionTeam> {
             itemBuilder: (_, index) {
               return Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
+                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
                 child: Column(
                   children: [
                     InkWell(
                       onTap: playerSelected[index]
                           ? null
                           : () {
-                              OnlyPosition.updatePlayerPosition(index, index);
-                              setState(() {
-                                if (currentSelectedPosition != null) {
-                                  selectedPlayers[currentSelectedPosition!] =
-                                      index;
-                                  playerSelected[index] = true;
-                                  currentSelectedPosition = null;
-                                }
-                              });
-                            },
+                        OnlyPosition.updatePlayerPosition(index, index);
+                        setState(() {
+                          if (currentSelectedPosition != null) {
+                            selectedPlayers[currentSelectedPosition!] =
+                                index;
+                            playerSelected[index] = true;
+                            currentSelectedPosition = null;
+                          }
+                        });
+                      },
                       child: playerSelected[index]
                           ? Container(width: 0, height: 0) // Hide the image
                           : Image.asset("assets/images/player.png"),
@@ -127,11 +120,11 @@ class _SelectionTeamState extends State<SelectionTeam> {
                     playerSelected[index]
                         ? Container(width: 0, height: 0) // Hide the text
                         : Text(
-                            playerNames[index],
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
+                      playerNames[index],
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -215,7 +208,7 @@ class _SelectionTeamState extends State<SelectionTeam> {
           child: InkWell(
             onTap: () {
               setState(
-                () {
+                    () {
                   if (selectedPlayers.containsKey(positionKey)) {
                     int playerIndex = selectedPlayers[positionKey]!;
                     playerSelected[playerIndex] = false;
@@ -228,14 +221,14 @@ class _SelectionTeamState extends State<SelectionTeam> {
             },
             child: selectedPlayers.containsKey(positionKey)
                 ? Column(
-                    children: [
-                      Image.asset("assets/images/player.png"),
-                      Text(
-                        playerNames[selectedPlayers[positionKey]!],
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  )
+              children: [
+                Image.asset("assets/images/player.png"),
+                Text(
+                  playerNames[selectedPlayers[positionKey]!],
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
+            )
                 : Image.asset("assets/images/add_pleyer.png"),
           ),
         ),
@@ -250,7 +243,7 @@ class _SelectionTeamState extends State<SelectionTeam> {
       PrefSection.saveSection(teamSection[newIndex]);
 
       setState(
-        () {
+            () {
           _selectedIndex = newIndex;
           selectedPlayers.clear();
           playerSelected = List.generate(11, (_) => false);
@@ -277,9 +270,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                  teamSection[0],
-                  style: TextStyle(fontSize: 20),
-                )),
+                      teamSection[0],
+                      style: TextStyle(fontSize: 20),
+                    )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -288,9 +281,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                  teamSection[1],
-                  style: TextStyle(fontSize: 20),
-                )),
+                      teamSection[1],
+                      style: TextStyle(fontSize: 20),
+                    )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -299,9 +292,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                  teamSection[2],
-                  style: TextStyle(fontSize: 20),
-                )),
+                      teamSection[2],
+                      style: TextStyle(fontSize: 20),
+                    )),
               ),
             ),
             DropdownMenuItem<int>(
@@ -310,9 +303,9 @@ class _SelectionTeamState extends State<SelectionTeam> {
                 padding: EdgeInsets.all(8.0),
                 child: Center(
                     child: Text(
-                  teamSection[3],
-                  style: TextStyle(fontSize: 20),
-                )),
+                      teamSection[3],
+                      style: TextStyle(fontSize: 20),
+                    )),
               ),
             ),
           ],

@@ -10,17 +10,17 @@ class Player extends StatelessWidget {
   Player(
       {super.key,
       required this.onPress,
-      required this.index}); // Add onPress function
+      required this.index}); 
 
-  final VoidCallback onPress; // Define the function type
-  final int index; // Define the function type
+  final VoidCallback onPress; 
+  final int index; 
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
-          onTap: onPress, // Use the onPress function
+          onTap: onPress, 
           child:CircleAvatar(
                 backgroundColor:
                     selected.select.value ? Colors.green : Colors.transparent,
@@ -29,7 +29,7 @@ class Player extends StatelessWidget {
         ),
         Text(
           playerNames[index],
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ],
     );

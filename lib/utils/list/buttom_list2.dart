@@ -19,10 +19,5 @@ List<Map<String, dynamic>> buttomData2 = [
     'navigation': MyWidget(),
     'text2': '300 coin'
   },
-  {
-    'image': 'assets/images/gift.png',
-    'text': 'Full Paket',
-    'navigation': MyWidget(),
-    'text2': '200 coin'
-  },
+
 ];

@@ -1,3 +1,5 @@
+import 'package:fantasy_football/ui/main/home/home_page.dart';
+import 'package:fantasy_football/ui/main/login/login_page.dart';
 import 'package:fantasy_football/widgets/team_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -37,140 +39,142 @@ class _AssembleTeamState extends State<AssembleTeam> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        const Text(
-          "Jamoani tanlang",
-          style: TextStyle(fontSize: 25),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            height: 370,
-            child: GridView.count(
-              crossAxisCount: 5,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              children: const [
-                TeamWidget(index: 0),
-                TeamWidget(index: 1),
-                TeamWidget(index: 2),
-                TeamWidget(index: 3),
-                TeamWidget(index: 4),
-                TeamWidget(index: 5),
-                TeamWidget(index: 6),
-                TeamWidget(index: 7),
-                TeamWidget(index: 8),
-                TeamWidget(index: 9),
-                TeamWidget(index: 10),
-                TeamWidget(index: 11),
-                TeamWidget(index: 12),
-                TeamWidget(index: 13),
-                TeamWidget(index: 14),
-                TeamWidget(index: 15),
-                TeamWidget(index: 16),
-                // TeamWidget(index: 8),
-                // TeamWidget(index: 8),
-                // TeamWidget(index: 8),
-                // TeamWidget(index: 8),
-                // TeamWidget(index: 8),
-                // TeamWidget(index: 8),
-              ],
-            ),
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          const Text(
+            "Jamoani tanlang",
+            style: TextStyle(fontSize: 25),
           ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.only(bottom: 25.0,right: 40,left: 40),
-          child: SizedBox(
-            width: double.infinity,
-            // height: 52,
-            child: ElevatedButton(
-              onPressed: () {
-                //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFE7E7E7),
-
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 15,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Jamoani nomi",
-                    style: TextStyle(fontSize: 24, color: Colors.black,fontWeight: FontWeight.w300),
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+              height: 370,
+              child: GridView.count(
+                crossAxisCount: 5,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15,
+                children: const [
+                  TeamWidget(index: 0),
+                  TeamWidget(index: 1),
+                  TeamWidget(index: 2),
+                  TeamWidget(index: 3),
+                  TeamWidget(index: 4),
+                  TeamWidget(index: 5),
+                  TeamWidget(index: 6),
+                  TeamWidget(index: 7),
+                  TeamWidget(index: 8),
+                  TeamWidget(index: 9),
                   TeamWidget(index: 10),
+                  TeamWidget(index: 11),
+                  TeamWidget(index: 12),
+                  TeamWidget(index: 13),
+                  TeamWidget(index: 14),
+                  TeamWidget(index: 15),
+                  TeamWidget(index: 16),
+                  // TeamWidget(index: 8),
+                  // TeamWidget(index: 8),
+                  // TeamWidget(index: 8),
+                  // TeamWidget(index: 8),
+                  // TeamWidget(index: 8),
+                  // TeamWidget(index: 8),
                 ],
               ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0,),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                width: double.infinity,
-                // height: 52,
-                child: ElevatedButton(
-                  onPressed: () {
-                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B900),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 15,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+      
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25.0,right: 40,left: 40),
+            child: SizedBox(
+              width: double.infinity,
+              // height: 52,
+              child: ElevatedButton(
+                onPressed: () {
+                  //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE7E7E7),
+      
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 15,
                   ),
-                  child: const Text(
-                    "Ro'yhatdan o'tish",
-                    style: TextStyle(fontSize: 24, color: Colors.white),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              ),
-              SizedBox(height: 20,),
-              SizedBox(
-                width: double.infinity,
-                // height: 52,
-                child: ElevatedButton(
-                  onPressed: () {
-                    //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B900),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 15,
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Jamoani nomi",
+                      style: TextStyle(fontSize: 24, color: Colors.black,fontWeight: FontWeight.w300),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    "Mehmon bo'lib kirish",
-                    style: TextStyle(fontSize: 24, color: Colors.white),
-                  ),
+                    TeamWidget(index: 10),
+                  ],
                 ),
               ),
-
-            ],
+            ),
           ),
-        ),
-
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  // height: 52,
+                  child: ElevatedButton(
+                    onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginPage(),),);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00B900),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "Ro'yhatdan o'tish",
+                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                SizedBox(
+                  width: double.infinity,
+                  // height: 52,
+                  child: ElevatedButton(
+                    onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF00B900),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "Mehmon bo'lib kirish",
+                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    ),
+                  ),
+                ),
+      
+              ],
+            ),
+          ),
+      
+        ],
+      ),
     );
   }
 

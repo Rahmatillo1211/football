@@ -1,8 +1,11 @@
 import 'package:fantasy_football/domain/entities/registration/register_user.dart';
+import 'package:fantasy_football/service/flutter_toast.dart';
+import 'package:fantasy_football/ui/main/login/register_cubit.dart';
+import 'package:fantasy_football/ui/main/login/register_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 
-import '../../../api/auth_service.dart';
 import '../home/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -19,24 +22,25 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  checkRegistration() async {
-    String email = _emailController.text.toString().trim();
-    String password = _passwordController.text.toString().trim();
-    String nickname = _nicknameController.text.toString().trim();
-    if (email.isNotEmpty && nickname.isNotEmpty && password.isNotEmpty) {
-      RegisterUser registerUser =
-          RegisterUser(username: nickname, email: email, password: password);
-      var response = await AuthService.registration(registerUser);
-      Logger().i("ishlamoqda");
-      Logger().i(response);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
-    }
-  }
+
+  // checkRegistration() async {
+  //   String email = _emailController.text.toString().trim();
+  //   String password = _passwordController.text.toString().trim();
+  //   String nickname = _nicknameController.text.toString().trim();
+  //   if (email.isNotEmpty && nickname.isNotEmpty && password.isNotEmpty) {
+  //     RegisterUser registerUser =
+  //         RegisterUser(username: nickname, email: email, password: password);
+  //     var response = await AuthService.registration(registerUser);
+  //     Logger().i("ishlamoqda");
+  //     Logger().i(response);
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => const HomePage(),
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -54,7 +58,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return SingleChildScrollView(
+    final cubit = context.read<RegisterCubit>();
+    return  BlocBuilder<RegisterCubit, RegisterState>(
+        bloc: cubit,
+        builder: (context, state) =>
+      SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -142,7 +150,17 @@ class _RegisterPageState extends State<RegisterPage> {
               // height: 52,
               child: ElevatedButton(
                 onPressed: () {
-                  checkRegistration();
+                  final email = _emailController.text.trim();
+                  final password = _passwordController.text.trim();
+                  final nickname = _nicknameController.text.trim();
+                  cubit.registration(email: email, password: password, nickname: nickname);
+                if(email.isNotEmpty&&password.isNotEmpty&&nickname.isNotEmpty ){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                }else{
+                  showToast("Empty");
+                }
+
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00B900),
@@ -188,6 +206,6 @@ class _RegisterPageState extends State<RegisterPage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

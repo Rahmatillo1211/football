@@ -1,5 +1,5 @@
 import 'package:fantasy_football/ui/other_pages/profile_edit.dart';
-import 'package:fantasy_football/ui/other_pages/share_page.dart';
+import 'package:fantasy_football/ui/main/settings/share_page.dart';
 import 'package:fantasy_football/ui/test_page.dart';
 
 List<Map<String, dynamic>> buttomData3 = [
