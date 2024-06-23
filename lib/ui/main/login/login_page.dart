@@ -120,10 +120,11 @@ class _LoginPageState extends State<LoginPage> {
                 // height: 52,
                 child: ElevatedButton(
                   onPressed: () {
-                    cubit.logintoPlatform(
-                        _emailController.text, _passwordController.text);
+
                       if(_emailController.text.isNotEmpty&&_passwordController.text.isNotEmpty){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                        cubit.logintoPlatform(
+                            _emailController.text, _passwordController.text);
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
 
                       }else{
                         showToast("Empty");

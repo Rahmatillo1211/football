@@ -1,5 +1,8 @@
+
 import 'package:dio/dio.dart';
+import 'package:fantasy_football/ui/main/home/home_page.dart';
 import 'package:fantasy_football/utils/network/network_info.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,6 +25,7 @@ class RegisterRepo {
       Logger().i(response.data["token"]);
       await saveToken(response.data["token"]);
       await saveEmail(email);
+      Get.to(const HomePage());
     } else {
       Logger().w(response.statusCode);
     }

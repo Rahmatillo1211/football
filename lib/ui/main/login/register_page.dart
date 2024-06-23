@@ -1,10 +1,8 @@
-import 'package:fantasy_football/domain/entities/registration/register_user.dart';
 import 'package:fantasy_football/service/flutter_toast.dart';
 import 'package:fantasy_football/ui/main/login/register_cubit.dart';
 import 'package:fantasy_football/ui/main/login/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 
 import '../home/home_page.dart';
 
@@ -153,9 +151,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   final email = _emailController.text.trim();
                   final password = _passwordController.text.trim();
                   final nickname = _nicknameController.text.trim();
-                  cubit.registration(email: email, password: password, nickname: nickname);
                 if(email.isNotEmpty&&password.isNotEmpty&&nickname.isNotEmpty ){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
+                  cubit.registration(email: email, password: password, nickname: nickname);
+
+                  //  Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
                 }else{
                   showToast("Empty");
                 }
