@@ -1,3 +1,4 @@
+import 'package:fantasy_football/widgets/dialog/balans_material.dart';
 import 'package:flutter/material.dart';
 
 class DropDownWidget extends StatefulWidget {
@@ -176,7 +177,8 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                       elevation: 0,
                     ),
                     onPressed: () {
-                      _showDialog(context, 'Cheksiz Transfer');
+                      balansDialog(context);
+                  //    _showDialog(context, 'Cheksiz Transfer');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

@@ -3,13 +3,7 @@ import 'package:fantasy_football/ui/main/settings/share_page.dart';
 import 'package:fantasy_football/ui/test_page.dart';
 
 List<Map<String, dynamic>> buttomData3 = [
-  {
-    'image': 'assets/images/translate.png',
-    'text': 'Tilini Tanlang',
-    'navigation': MyWidget(),
-    'text2': ''
 
-  },
   {
     'image': 'assets/images/warning.png',
     'text': 'Tanishtiruv',

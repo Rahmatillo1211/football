@@ -1,4 +1,3 @@
-import 'package:fantasy_football/domain/entities/login/login_request.dart';
 import 'package:fantasy_football/service/flutter_toast.dart';
 import 'package:fantasy_football/ui/main/home/home_page.dart';
 import 'package:fantasy_football/ui/main/login/login_cubit.dart';
@@ -6,7 +5,6 @@ import 'package:fantasy_football/ui/main/login/login_state.dart';
 import 'package:fantasy_football/ui/main/login/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 
 
 class LoginPage extends StatefulWidget {

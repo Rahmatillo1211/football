@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:fantasy_football/repo/login_repo.dart';
+import 'package:fantasy_football/repo/logout_repo.dart';
 import 'package:fantasy_football/repo/register_repo.dart';
 import 'package:fantasy_football/ui/main/login/login_cubit.dart';
 import 'package:fantasy_football/ui/main/login/login_page.dart';
+import 'package:fantasy_football/ui/main/login/logout_cubit.dart';
 import 'package:fantasy_football/ui/main/login/register_cubit.dart';
 import 'package:fantasy_football/ui/main/login/register_page.dart';
 import 'package:fantasy_football/utils/injection_container.dart';
@@ -35,6 +37,9 @@ class MyApp extends StatelessWidget {
                 LoginCubit(repo: getIt.get<LoginRepo>())),
         BlocProvider(
           create: (BuildContext context) => RegisterCubit(repo: getIt.get<RegisterRepo>()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => LogoutCubit(repo: getIt.get<LogoutRepo>()),
         ),
       ],
       child: GetMaterialApp(

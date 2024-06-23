@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:fantasy_football/service/url_launcher_service.dart';
 import 'package:fantasy_football/utils/list/buttom_list3.dart';
 import 'package:fantasy_football/widgets/buttoms/buttom_widget.dart';
+import 'package:fantasy_football/widgets/dialog/cupertino_lang.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+
+import '../../../widgets/dialog/cupertino_dialog.dart';
+import '../../../widgets/dialog/lang_material.dart';
+import '../../../widgets/dialog/material_dialog.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,11 @@ class SettingScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-
+              if (Platform.isAndroid) {
+                showMaterialAlertDialogExample(context);
+              } else if (Platform.isIOS) {
+                showCupertinoAlertDialog(context);
+              }
             },
             icon: Icon(
               Icons.exit_to_app,
@@ -49,6 +58,54 @@ class SettingScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (Platform.isAndroid) {
+                      showMaterialAlertDialogLang(context);
+                    } else if (Platform.isIOS) {
+                      showCupertinoLang(context);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.grey[200],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/translate.png',
+                        height: 24,
+                        width: 24,
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      const Text(
+                        'Tilini Tanlang',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      const Spacer(),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.grey,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             _buildButton(buttomData3),
             const SizedBox(
               height: 31,
@@ -57,8 +114,8 @@ class SettingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () async{
-                  await  LaunchUrl.facebookCall();
+                  onTap: () async {
+                    await LaunchUrl.facebookCall();
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -74,8 +131,8 @@ class SettingScreen extends StatelessWidget {
                   width: 10,
                 ),
                 GestureDetector(
-                  onTap: () async{
-                    await  LaunchUrl.twitterCall();
+                  onTap: () async {
+                    await LaunchUrl.twitterCall();
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -91,8 +148,8 @@ class SettingScreen extends StatelessWidget {
                   width: 10,
                 ),
                 GestureDetector(
-                  onTap: () async{
-                    await  LaunchUrl.instagramCall();
+                  onTap: () async {
+                    await LaunchUrl.instagramCall();
                   },
                   child: Container(
                     decoration: BoxDecoration(
