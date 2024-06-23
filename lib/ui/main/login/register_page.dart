@@ -1,10 +1,8 @@
-import 'package:fantasy_football/domain/entities/registration/register_user.dart';
 import 'package:fantasy_football/service/flutter_toast.dart';
 import 'package:fantasy_football/ui/main/login/register_cubit.dart';
 import 'package:fantasy_football/ui/main/login/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 
 import '../home/home_page.dart';
 
@@ -159,8 +157,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 }else{
                   showToast("Empty");
                 }
-
-
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00B900),

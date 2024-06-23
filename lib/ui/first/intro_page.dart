@@ -1,6 +1,6 @@
 import 'package:fantasy_football/ui/first/assemble_team.dart';
 import 'package:fantasy_football/ui/first/selection_capitan.dart';
-import 'package:fantasy_football/ui/first/slection_team.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/slection_team.dart';
 import 'package:fantasy_football/widgets/intro_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
