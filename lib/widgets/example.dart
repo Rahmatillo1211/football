@@ -85,6 +85,7 @@ Dio addInterceptor(Dio dio) {
   return dio;
 }
 
+
 class RefreshTokenHelper {
   // This class is kept for future token management if needed
 
@@ -105,7 +106,7 @@ method()async{
     final prefs = GetIt.instance.get<SharedPreferences>();
     final tokenJson = prefs.getString("registerToken");
     final response = await Dio().post(
-      'https://databaseproject-flou.onrender.com/auth/login',
+      '/auth/login',
       data: {
         'email': 'response@gmail.com',
         'password': '12345678',

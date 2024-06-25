@@ -1,14 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:fantasy_football/repo/login_repo.dart';
-import 'package:fantasy_football/repo/logout_repo.dart';
+import 'package:fantasy_football/repo/auth/login_repo.dart';
+import 'package:fantasy_football/repo/auth/logout_repo.dart';
+import 'package:fantasy_football/repo/intro/intro_repo.dart';
 import 'package:fantasy_football/utils/network/interseptor.dart';
 import 'package:fantasy_football/utils/network/network_info.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../repo/register_repo.dart';
+import '../repo/auth/register_repo.dart';
 
 final getIt = GetIt.instance;
 
@@ -62,6 +63,12 @@ Future<void> _registerSingleton() async {
       dio: GetIt.instance.get(),
       networkInfo: GetIt.instance.get(),
       getData: GetIt.instance.get(),
+    ),
+  );
+  getIt.registerFactory(
+        () => IntroRepo(
+      client: GetIt.instance.get(),
+      networkInfo: GetIt.instance.get(),
     ),
   );
 }

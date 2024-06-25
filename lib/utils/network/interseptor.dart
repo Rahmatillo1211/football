@@ -1,15 +1,17 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final keyLoginData = "login";
+const keyLoginData = "login";
 
 Dio addInterceptor(Dio dio) {
   final tokenHelper = GetIt.instance.get<RefreshTokenHelper>();
-  dio.interceptors.add(PrettyDioLogger(
+  dio.interceptors.add(
+      PrettyDioLogger(
     request: true,
     requestBody: true,
     requestHeader: true,
@@ -104,13 +106,4 @@ class RefreshTokenHelper {
     }
     return null;
   }
-
-  // String? getLang() {
-  //   final prefs = GetIt.instance.get<SharedPreferences>();
-  //   final lang = prefs.getString(keyLanguageData);
-  //   if (lang != null) {
-  //     return lang;
-  //   }
-  //   return null;
-  // }
 }

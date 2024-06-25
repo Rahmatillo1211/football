@@ -1,10 +1,14 @@
-import 'package:fantasy_football/controller/players_list.dart';
 import 'package:fantasy_football/service/hive_service/only_position.dart';
 import 'package:fantasy_football/service/hive_service/selection_section.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/player_cubit.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/player_state.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/selection_tea_state.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/slection_team_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
-import '../../other/lists.dart';
+import '../../../other/lists.dart';
 
 class SelectionTeam extends StatefulWidget {
   const SelectionTeam({super.key});
@@ -17,22 +21,22 @@ class SelectionTeam extends StatefulWidget {
 
 class _SelectionTeamState extends State<SelectionTeam> {
   int _selectedIndex = 0;
-  PlayersList playersList = Get.put(PlayersList());
+  // PlayersList playersList = Get.put(PlayersList());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     check();
-
+    // final cubit = context.read<SelactionTeamCubit>();
+    // cubit.getplayersList();
   }
 
   // String s = SelectionSection.getSection() ?? "1-3-4-3";
-  String s =  "1-3-4-3";
+  String s = "1-3-4-3";
 
   void check() async {
     var team = await PrefSection.getSection();
-
     setState(() {
       s = team!;
       if (s == teamSection[1]) {
@@ -44,7 +48,6 @@ class _SelectionTeamState extends State<SelectionTeam> {
       }
     });
   }
-
 
   List<bool> playerSelected = List.generate(11, (_) => false);
   Map<int, int> selectedPlayers = {};
@@ -60,84 +63,92 @@ class _SelectionTeamState extends State<SelectionTeam> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(right: 20),
-          decoration: const BoxDecoration(
-            color: Color(0xff1F9059),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          width: 350,
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Text(
-                "Kamanda Tering",
-                style: TextStyle(fontSize: 20),
-              ),
-              buildDrop(context),
-            ],
-          ),
+    final cubit = context.read<SelectionTeamCubit>();
+    return BlocBuilder<SelectionTeamCubit, SelectionTeamState>(
+        bloc: cubit,
+        builder: (context, state) {
+      return Column(
+          children: <Widget>[
+      Container(
+      padding: const EdgeInsets.only(right: 20),
+    decoration: const BoxDecoration(
+    color: Color(0xff1F9059),
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    ),
+    width: 350,
+    height: 50,
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+    const Text(
+    "Kamanda Tering",
+    style: TextStyle(fontSize: 20),
+    ),
+    buildDrop(context),
+    ],
+    ),
+    ),
+    _buildStack(),
+    Container(
+    decoration: BoxDecoration(
+    color: Colors.blueGrey,
+    borderRadius: BorderRadius.circular(10),
+    ),
+    width: 350,
+    height: 100,
+    child: ListView.separated(
+    scrollDirection: Axis.horizontal,
+    shrinkWrap: true,
+    itemBuilder: (_, index) {
+    final players = cubit.playersList[index];
+    return Padding(
+    padding: const EdgeInsets.symmetric(
+    vertical: 20.0, horizontal: 8),
+    child: Column(
+    children: [
+    InkWell(
+    onTap: playerSelected[index]
+    ? null
+        : () {
+    OnlyPosition.updatePlayerPosition(
+    index, index);
+    setState(() {
+    if (currentSelectedPosition != null) {
+    selectedPlayers[
+    currentSelectedPosition!] = index;
+    playerSelected[index] = true;
+    currentSelectedPosition = null;
+    }
+    });
+    },
+      child: playerSelected[index]
+          ? Container(
+          width: 0, height: 0)
+          : Image.asset("assets/images/player.png"),
+    ),
+      const SizedBox(height: 10),
+      playerSelected[index]
+          ? Container(width: 0, height: 0)
+          : Text(
+        players.name??"",
+        style: const TextStyle(
+          color: Colors.white,
         ),
-        _buildStack(),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.blueGrey,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          width: 350,
-          height: 100,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: playerSelected[index]
-                          ? null
-                          : () {
-                        OnlyPosition.updatePlayerPosition(index, index);
-                        setState(() {
-                          if (currentSelectedPosition != null) {
-                            selectedPlayers[currentSelectedPosition!] =
-                                index;
-                            playerSelected[index] = true;
-                            currentSelectedPosition = null;
-                          }
-                        });
-                      },
-                      child: playerSelected[index]
-                          ? Container(width: 0, height: 0) // Hide the image
-                          : Image.asset("assets/images/player.png"),
-                    ),
-                    const SizedBox(height: 10),
-                    playerSelected[index]
-                        ? Container(width: 0, height: 0) // Hide the text
-                        : Text(
-                      playerNames[index],
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (_, index) {
-              return const SizedBox(width: 10);
-            },
-            itemCount: playerNames.length,
-          ),
-        ),
-        const SizedBox(height: 10),
-      ],
+      ),
+    ],
+    ),
     );
+    },
+      separatorBuilder: (_, index) {
+        return const SizedBox(width: 10);
+      },
+      itemCount: cubit.playersList.length,
+    ),
+    ),
+            const SizedBox(height: 10),
+          ],
+      );
+        });
   }
 
   Widget _buildStack() {
@@ -198,7 +209,6 @@ class _SelectionTeamState extends State<SelectionTeam> {
     List<Widget> linePositions = [];
     double spacing = 70.0; // Adjusted spacing between players
     double leftOffset = (fieldWidth - (playerCount - 1) * spacing) / 2;
-
     for (int i = 0; i < playerCount; i++) {
       int positionKey = topOffset.toInt() * 10 + i;
       linePositions.add(

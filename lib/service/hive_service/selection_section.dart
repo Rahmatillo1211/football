@@ -12,7 +12,7 @@ Logger().i("saves success");
 
   static Future<String?> getSection() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String section = prefs.getString("section")!;
+    String section = prefs.getString("section")??"1-3-4-3";
     Logger().w(section);
   return section ;
   }

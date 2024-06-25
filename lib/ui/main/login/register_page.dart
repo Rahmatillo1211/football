@@ -158,8 +158,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 }else{
                   showToast("Empty");
                 }
-
-
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00B900),

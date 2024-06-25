@@ -4,7 +4,7 @@ import 'package:fantasy_football/utils/network/network_info.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ui/main/home/home_page.dart';
+import '../../ui/main/home/home_page.dart';
 
 class LoginRepo {
   final Dio dio;

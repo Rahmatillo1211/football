@@ -1,26 +1,22 @@
-import 'dart:async';
-
-import 'package:fantasy_football/repo/login_repo.dart';
-import 'package:fantasy_football/repo/logout_repo.dart';
-import 'package:fantasy_football/repo/register_repo.dart';
+import 'package:fantasy_football/repo/auth/login_repo.dart';
+import 'package:fantasy_football/repo/auth/logout_repo.dart';
+import 'package:fantasy_football/repo/auth/register_repo.dart';
+import 'package:fantasy_football/repo/intro/intro_repo.dart';
+import 'package:fantasy_football/ui/first/intro_page.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/player_cubit.dart';
+import 'package:fantasy_football/ui/first/selctionTeam/slection_team_cubit.dart';
 import 'package:fantasy_football/ui/main/login/login_cubit.dart';
-import 'package:fantasy_football/ui/main/login/login_page.dart';
 import 'package:fantasy_football/ui/main/login/logout_cubit.dart';
 import 'package:fantasy_football/ui/main/login/register_cubit.dart';
-import 'package:fantasy_football/ui/main/login/register_page.dart';
 import 'package:fantasy_football/utils/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 
-import 'other/hive_boxes.dart';
-
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
-  await hiveBoxes();
-
+  await init(); // Initialize GetIt
   runApp(const MyApp());
 }
 
@@ -33,13 +29,26 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (BuildContext context) =>
-                LoginCubit(repo: getIt.get<LoginRepo>())),
-        BlocProvider(
-          create: (BuildContext context) => RegisterCubit(repo: getIt.get<RegisterRepo>()),
+          create: (BuildContext context) => LoginCubit(
+            repo: getIt.get<LoginRepo>(),
+          ),
         ),
         BlocProvider(
-          create: (BuildContext context) => LogoutCubit(repo: getIt.get<LogoutRepo>()),
+          create: (BuildContext context) =>
+              RegisterCubit(repo: getIt.get<RegisterRepo>()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) =>
+              LogoutCubit(repo: getIt.get<LogoutRepo>()),
+        ),
+        //SelactionTeamCubit      IntroRepo
+        // BlocProvider(
+        //   create: (BuildContext context) =>
+        //       SelactionTeamCubit(repo: getIt.get<IntroRepo>()),
+        // ),
+        BlocProvider(
+          create: (BuildContext context) =>
+              PlayersCubit(),
         ),
       ],
       child: GetMaterialApp(
@@ -48,13 +57,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const LoginPage(),
+        home: const BaseIntroPage(),
       ),
-
-      // home: const BaseIntroPage(),
-      // routes: {
-      //   CalendarPage.id:(context)=>const CalendarPage()
-      // },
     );
   }
 }
